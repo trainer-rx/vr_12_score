@@ -1,2 +1,4 @@
 # Ignore built gem
 *.gem
+*.yardoc
+lib/weights/*
