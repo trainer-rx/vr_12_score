@@ -30,3 +30,5 @@ scorer.score(survey)
 ## Testing
 
 Tests developed using RSpec 3.4.  Run the test suite with ```rake``` or ```rake test```
+
+The file ```spec/test_data.csv``` contains 250 survey results and their corresponding mcs and pcs values.  These test cases are a subset of the 2000 that were included with the original R implementation of the VR12 scoring algorithm, in the file ```VR12 Test Data for R.xls```.  The original test data set was reduced because this gem was designed to be freely distributed independent of the proprietary weight data files, and the original test data set contained enough information to algebraically solve for some of the weights (12 or more surveys that use the same set of 12 weights).  Each entry in the reduced test data setuses a different set of weights.

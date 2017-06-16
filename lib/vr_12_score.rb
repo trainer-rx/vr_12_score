@@ -77,7 +77,7 @@ class Vr12Score
       raise ArgumentError.new("Value for #{q} must be an integer from 1 to 5") unless (1..5).to_a.include? survey[q]
       survey[q] = (5 - survey[q]) * 25
     end
-    survey[:sf5] = 100 - survey[:sf5] if survey[:sf5]
+    survey[:sf2] = 100 - survey[:sf2] if survey[:sf2]
     ([:mh3, :vt2, :mh4] - blank_questions).each do |q|
       raise ArgumentError.new("Value for #{q} must be an integer from 1 to 6") unless (1..6).to_a.include? survey[q]
       survey[q] = (6 - survey[q]) * 20
@@ -90,17 +90,23 @@ class Vr12Score
 
     pcs_row = pcs_data[:key].index(key)
     mcs_row = mcs_data[:key].index(key)
-    pcs_weights = pcs_data[pcs_row]
-    mcs_weights = mcs_data[mcs_row]
 
-    # Calculate score by taking the weighted sum of the question responses given the appropriate weights,
-    # then adding the appropriate constant term, based on which questions were answered.
-    # Convert survey answers to integers to handle nil values (will not affect the weighted sum)
-    # Add 'x' to end of question labels to look up weights to match the headers of the weight files.
-    return {
-      pcs: QUESTION_LABELS.map {|q| survey[q].to_i * pcs_weights[weight_name(q)]}.reduce(&:+) + pcs_weights[:cons],
-      mcs: QUESTION_LABELS.map {|q| survey[q].to_i * mcs_weights[weight_name(q)]}.reduce(&:+) + mcs_weights[:cons]
-    }
+    pcs = mcs = nil
+    if pcs_row
+      pcs_weights = pcs_data[pcs_row]
+      # Calculate score by taking the weighted sum of the question responses given the appropriate weights,
+      # then adding the appropriate constant term, based on which questions were answered.
+      # Convert survey answers to integers to handle nil values (will not affect the weighted sum)
+      # Add 'x' to end of question labels to look up weights to match the headers of the weight files.
+      pcs = QUESTION_LABELS.map {|q| survey[q].to_i * pcs_weights[weight_name(q)]}.reduce(&:+) + pcs_weights[:cons]
+    end
+
+    if mcs_row
+      mcs_weights = mcs_data[mcs_row]
+      mcs = QUESTION_LABELS.map {|q| survey[q].to_i * mcs_weights[weight_name(q)]}.reduce(&:+) + mcs_weights[:cons]
+    end
+
+    return {pcs: pcs, mcs: mcs}
   end
 
   private
