@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.files       = ["lib/vr_12_score.rb"]
   s.email       = "dev.support@trainer-rx.com"
   s.homepage    = "https://github.com/trainer-rx/vr_12_score"
+  s.license     = "MIT"
 
   s.add_development_dependency "rspec", "~>3.4"
 end

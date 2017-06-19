@@ -3,11 +3,13 @@
 A gem for scoring the VR12 instrument.
 http://www.bu.edu/sph/research/research-landing-page/vr-36-vr-12-and-vr-6d/
 
+Based on the R program "VR12score" by Scott J Hetzel MS (hetzel@biostat.wisc.edu). University of Wisconsin - Madison, 12/15/2014
+
 ## Usage
-This gem requires the use of proprietary data files containing weights created through the statistical analysis of survey responses. The data files are not included in this repository.  Contact the developers of the survey to request access to these files.
+This gem requires the use of proprietary data files containing weights created through the statistical analysis of survey responses. The data files are not included in this repository. Contact the developers of the survey to request access to these files.
 http://www.bu.edu/sph/research/research-landing-page/vr-36-vr-12-and-vr-6d/request-access/
 
-The four data files contain weights for calculating the physical component score (pcs) and mental component score (mcs) of surveys that were administered by phone interview or mail-out written questionnaire.  It is recommended that you rename these files on your system to ```pcs_phone.csv```, ```mcs_phone.csv```, ```pcs_mail.csv``` and ```mcs_mail.csv``` so the gem can find them with no additional configuration.  To initialize a new scorer, pass the directory containing these data files.
+The four data files contain weights for calculating the physical component score (pcs) and mental component score (mcs) of surveys that were administered by phone interview or mail-out written questionnaire. It is recommended that you rename these files on your system to ```pcs_phone.csv```, ```mcs_phone.csv```, ```pcs_mail.csv``` and ```mcs_mail.csv``` so the gem can find them with no additional configuration. To initialize a new scorer, pass the directory containing these data files.
 
 ```
 require "vr_12_score"
@@ -31,4 +33,4 @@ scorer.score(survey)
 
 Tests developed using RSpec 3.4.  Run the test suite with ```rake``` or ```rake test```
 
-The file ```spec/test_data.csv``` contains 250 survey results and their corresponding mcs and pcs values.  These test cases are a subset of the 2000 that were included with the original R implementation of the VR12 scoring algorithm, in the file ```VR12 Test Data for R.xls```.  The original test data set was reduced because this gem was designed to be freely distributed independent of the proprietary weight data files, and the original test data set contained enough information to algebraically solve for some of the weights (12 or more surveys that use the same set of 12 weights).  Each entry in the reduced test data setuses a different set of weights.
+The file ```spec/test_data.csv``` contains 250 survey results and their corresponding mcs and pcs values. The rspec tests check that the scores produced by this gem match the expected values up to 6 decimal places, the accuracy given by the original R implementation.
