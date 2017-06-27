@@ -23,8 +23,8 @@ class Vr12Score
   #   score for a mail-out vr-12 survey. Defaults to "mcs_mail.csv"
   attr_accessor :mcs_mail_file
 
-  # @param weights_dir [String] ("weights") The name of the file containing weights for calculating
-  #   the mental component score for a mail-out vr-12 survey.
+  # @param weights_dir [String] ("weights") The directory of the csv files containing the weights used
+  #   to score the vr-12 survey.
   def initialize(weights_dir="weights")
     @weights_dir    = weights_dir
     @pcs_phone_file = "pcs_phone.csv"
@@ -34,8 +34,21 @@ class Vr12Score
   end
 
   # Calculates the score for a response to the vr-12 survey
-  # @param survey [Hash] The survey response data
+  # @param survey [Hash] The survey response data.  This argument must contain 13 keys: One for each of
+  #   the 12 questions in the vr-12 survey, and a :type key.
   # @option survey [String] :type The method that was used to administer this survey. "phone" or "mail"
+  # @option survey [Number] :gh1 The response to question 1: General Health (1-5)
+  # @option survey [Number] :pf02 The response to question 2a: Physical Functioning part a (1-3)
+  # @option survey [Number] :pf04 The response to question 2b: Physical Functioning part b (1-3)
+  # @option survey [Number] :vrp2 The response to question 3a: Physical Work Limitations part a (1-5)
+  # @option survey [Number] :vrp3 The response to question 3b: Physical Work Limitations part b (1-5)
+  # @option survey [Number] :vre2 The response to question 4a: Emotional Work Limitations part a (1-5)
+  # @option survey [Number] :vre3 The response to question 4b: Emotional Work Limitations part b (1-5)
+  # @option survey [Number] :bp2 The response to question 5: Bodily Pain (1-5)
+  # @option survey [Number] :mh3 The response to question 6a: Mental Health - Peaceful (1-6)
+  # @option survey [Number] :vt2 The response to question 6b: Vitality - Energy (1-6)
+  # @option survey [Number] :mh4 The response to question 6c: Mental Health - Down (1-6)
+  # @option survey [Number] :sf2 The response to question 7: Social Functioning (1-5)
   # @return [Hash{Symbol => Number}] The physical component score and mental component score.
   def score(survey)
     if !survey || !survey.is_a?(Hash)
