@@ -34,3 +34,14 @@ scorer.score(survey)
 Tests developed using RSpec 3.4.  Run the test suite with ```rake``` or ```rake test```
 
 The file ```spec/test_data.csv``` contains 250 survey results and their corresponding mcs and pcs values. The rspec tests check that the scores produced by this gem match the expected values up to 6 decimal places, the accuracy given by the original R implementation.
+
+## Publishing
+
+This gem is published to rubygems.org. The rubygems account credentials can be found in the Trainer Rx 1password account.
+
+To publish a new version:
+1. Update the version number in ```vr_12_score.gemspec```
+2. Build the gem with ```gem build vr_12_score.gemspec```
+3. Publish on rubygems with ```gem push vr_12_score-X.X.X.gem```
+  * where X.X.X is the version number you set in the gemspec file
+  * you will be prompted for the email and password for the Trainer Rx rubygems account.
