@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "vr_12_score"
-  s.version     = "0.0.0"
+  s.version     = "1.0.0"
   s.date        = "2017-05-31"
   s.summary     = "VR-12 scoring tool"
   s.description = "A utility for calculating the VR-12 Physical Component Score (PCS) and Mental Component Score (MCS)"
